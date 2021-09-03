@@ -11,7 +11,7 @@ In the same/similar example of scikit-learn,
 
 ## Quiz 1
 
-Code available in `/mlops_task_1/quiz_1.py`
+Code available in `[/mlops_task_1/quiz_1.py](/mlops_task_1/quiz_1.py)`
 
 ## Output
 
