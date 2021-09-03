@@ -1,0 +1,11 @@
+prefix: ./.venv
+channels:
+  - fastchan
+  - conda-forge
+  - default
+dependencies:
+  - python
+  - matplotlib
+  - scikit-learn
+  - scikit-image
+  - pip
