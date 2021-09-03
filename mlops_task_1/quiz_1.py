@@ -29,9 +29,10 @@ def print_metrics(images, test_size):
     predicted = clf.predict(X_test)
 
     acc = metrics.accuracy_score(y_test, predicted)
-    print(f"{images.shape[1:]} --> {1-test_size}/{test_size} --> {acc}")
+    f1 = metrics.f1_score(y_test, predicted, average='micro')
+    print(f"{images.shape[1:]} --> {1-test_size}/{test_size} --> {acc:.3f} --> {f1:.3f}")
 
-print("Image_Size --> train/test --> Accuracy")
+print("Image_Size --> train/test --> Accuracy --> F1 Score (micro)")
 for sz in (64, 32, 16):
     # resize data
     images = resize(data, (data.shape[0] ,sz, sz), anti_aliasing=True)
