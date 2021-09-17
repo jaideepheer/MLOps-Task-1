@@ -1,0 +1,6 @@
+{
+    "python.analysis.extraPaths": [
+        "./mlops_task_1"
+    ],
+    "python.formatting.provider": "black"
+}
