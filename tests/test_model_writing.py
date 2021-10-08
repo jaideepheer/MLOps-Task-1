@@ -13,9 +13,12 @@ def get_splits(test_size=0.2, valid_size=0.2, ds_size=None):
         ds_size = N
     # flatten
     data = digits.images.reshape((N, -1))
+    # split data for n samples
+    data = data[:ds_size]
+    target = digits.target[:ds_size]
     # create splits fo N=100
     X_train, X_test, X_valid, Y_train, Y_test, Y_valid = utils.create_ttv_splits(
-        data[:ds_size], digits.target[:ds_size], test_size, valid_size
+        data, target, test_size, valid_size
     )
     return X_train, X_test, X_valid, Y_train, Y_test, Y_valid
 
