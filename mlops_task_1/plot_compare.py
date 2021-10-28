@@ -20,6 +20,7 @@ if __name__ == "__main__":
     # iterate over hparam space
     for hparams in param_grid_iterator(hparam_space):
         print('='*15)
+        print(f"Scaling: {hparams['scaling']}")
         print(f"Train/Test splits: {hparams['sizes']}")
         print('='*15)
         # rescale
