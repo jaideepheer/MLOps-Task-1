@@ -44,6 +44,11 @@ if __name__ == "__main__":
         v1, v2 = zip(*total)
         m1, m2 = sum(v1)/len(v1), sum(v2)/len(v2)
         print(f"Mean     \t{m1}\t{m2}")
-
-        # print(f"Std. Dev.\t{s1}\t{s2}")
+        def _stddev(l, mn):
+            s = 0
+            for x in l:
+                s += (x-mn)**2
+            return (s/len(l))**0.5
+        s1, s2 = _stddev(v1, m1), _stddev(v2, m2)
+        print(f"Std. Dev.\t{s1}\t{s2}")
             
