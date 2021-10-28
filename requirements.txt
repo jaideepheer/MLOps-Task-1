@@ -2,3 +2,4 @@ matplotlib
 scikit-learn
 scikit-image
 pytest
+addict

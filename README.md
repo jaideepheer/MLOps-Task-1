@@ -1,10 +1,19 @@
 # MLOps-Task-1
 
-Write a test cases for the `create_split` function. check for number of samples in each split, and sum of samples in each split should come to the total number of samples. (so, 4 assert statements)
+Hi all,
+In today's lab session, we will do experiments to understand "how to identify if model A is better than model B or not?"
 
-1. if you give n=100 samples, and provide train:test:valid split as 70:20:10, there should be 70,20, and 10 samples in the train, tests, and validation splits returned by `create_split` function.
+- We will add a functionality to use "DecisionTree" classifier https://scikit-learn.org/stable/modules/tree.html#classification
+- We will have 5 different splits of train/test/valid, and will report performance of existing SVM and the new DecisionTree classifier. (question: what about hyper-parameter turning).
+- We will compute the mean and standard deviations of bot the classifier's performances.
+- Interpret the numbers
+- Identify if there is more to the classifier comparison than just the numbers?
 
-2. given n=9 samples, with 70:20:10 split, the train should contain 6, 2, 1 samples respectively.
+## How to run
+
+```
+python -m mlops_task_1.plot_compare
+```
 
 ## Test Output
 
