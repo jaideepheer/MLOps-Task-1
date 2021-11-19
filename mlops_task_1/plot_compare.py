@@ -1,5 +1,8 @@
+from numpy.lib.function_base import append
 from sklearn import svm, tree, datasets
 from .utils import *
+import pathlib
+from joblib import dump, load
 
 # Run train
 if __name__ == "__main__":
@@ -14,8 +17,10 @@ if __name__ == "__main__":
         "sizes": [(0.1, 0.1), (0.15, 0.15), (0.2, 0.2), (0.3, 0.3), (0.4, 0.4)],
     }
     models = [
-        {"builder": svm.SVC, "hparams": {"gamma": 0.1,},},
-        {"builder": tree.DecisionTreeClassifier, "hparams": {"max_depth": 5,},},
+        {"builder": svm.SVC, "hparam_space": {
+            "gamma": [0.1, 0.2, 0.3, 0.4, 0.5, ]}, },
+        {"builder": tree.DecisionTreeClassifier,
+            "hparam_space": {"max_depth": [5, 6, 7, 8, 9, ], }, },
     ]
     # iterate over hparam space
     for hparams in param_grid_iterator(hparam_space):
@@ -37,14 +42,23 @@ if __name__ == "__main__":
         print(f"Accuracy\t{temp}")
         total = []
         for i in range(5):
-            res = [train_model(X_train, X_valid, Y_train, Y_valid, model_builder=m["builder"], **m["hparams"]) for m in models]
-            res = list(map(lambda k: k["valid_metrics"]["acc"], res))
+            def _best_acc(builder, hparam_space):
+                ll = []
+                for hparams in param_grid_iterator(hparam_space):
+                    ll.append(train_model(X_train, X_valid, Y_train, Y_valid,
+                                          model_builder=builder, **hparams))
+                return max(ll, key=lambda x: x["valid_metrics"]["acc"])
+            res = [_best_acc(m["builder"], m["hparam_space"]) for m in models]
             total.append(res)
-            temp = '\t'.join(map(str, res))
+            res_acc = list(map(lambda k: k["valid_metrics"]["acc"], res))
+            temp = '\t'.join(map(str, res_acc))
             print(f"        \t{temp}")
-        v1, v2 = zip(*total)
+        total_acc = [list(map(lambda k: k["valid_metrics"]["acc"], x))
+                     for x in total]
+        v1, v2 = zip(*total_acc)
         m1, m2 = sum(v1)/len(v1), sum(v2)/len(v2)
         print(f"Mean     \t{m1}\t{m2}")
+
         def _stddev(l, mn):
             s = 0
             for x in l:
@@ -52,4 +66,22 @@ if __name__ == "__main__":
             return (s/len(l))**0.5
         s1, s2 = _stddev(v1, m1), _stddev(v2, m2)
         print(f"Std. Dev.\t{s1}\t{s2}")
-            
+
+        # Save best models
+        mdls = zip(*total)
+        sp = 'x'.join(map(str, list(images.shape[1:])))
+        root = pathlib.Path(f'./models/best_{sp}')
+        root.mkdir(parents=True, exist_ok=True)
+        for m in mdls:
+            builder = m[0]['model_builder'].__name__
+            best = max(m, key=lambda x: x["valid_metrics"]["acc"])
+            mfile = root / f'{builder}.gz'
+            tosave = True
+            if mfile.exists():
+                # check if prev. model was better
+                prev = load(mfile)
+                if prev["valid_metrics"]["acc"] > best["valid_metrics"]["acc"]:
+                    tosave = False
+            if tosave is True:
+                # new one is better
+                dump(best, mfile)

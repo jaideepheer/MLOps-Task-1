@@ -12,7 +12,7 @@ def write_trained_model(model_dict, models_root: pathlib.Path):
         os.system(f"rm -rf {str(out_folder.resolve())}")
     os.mkdir(out_folder)
     # save
-    dump(model_dict["model"], out_folder / "model.jolib")
+    dump(model_dict["model"], out_folder / "model.gz")
 
 
 # Run train

@@ -1,6 +1,7 @@
 from skimage.transform import rescale
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
+from sklearn.svm import SVC
 import numpy as np
 from addict import Dict as D
 from itertools import product
@@ -11,7 +12,8 @@ import os
 
 def preprocess_images(images, rescale_factor, anti_aliasing=False):
     return np.array(
-        [rescale(x, rescale_factor, anti_aliasing=anti_aliasing) for x in images]
+        [rescale(x, rescale_factor, anti_aliasing=anti_aliasing)
+         for x in images]
     )
 
 
@@ -37,7 +39,7 @@ def predict_metrics(model, X, Y):
     predicted = model.predict(X)
     acc = metrics.accuracy_score(Y, predicted)
     f1 = metrics.f1_score(Y, predicted, average="macro")
-    return D({"acc": acc, "f1": f1,})
+    return D({"acc": acc, "f1": f1, })
 
 
 def flatten_dict(d: dict, *, prefix=[]):
@@ -93,7 +95,7 @@ def hparam_search_model(
     """
     Performs hyper-paramater search on models created by calling
         model_builder(**selected_model_hparams + **extra_model_args)
-    
+
     model_builder should be a callable which when called with args return a trainable model.
     model_hparams should be a dict with key being hparam arg name and value being a list of all hparam value to search in.
 
@@ -112,7 +114,7 @@ def hparam_search_model(
         yield params, model_dict
 
 
-def train_model(X_train, X_valid, Y_train, Y_valid, model_builder, **model_args):
+def train_model(X_train, X_valid, Y_train, Y_valid, model_builder=SVC, **model_args):
     """
     model_builder should be a callable which when called with args return a trainable model.
     """
@@ -122,4 +124,4 @@ def train_model(X_train, X_valid, Y_train, Y_valid, model_builder, **model_args)
     # test model
     valid_metrics = predict_metrics(clf, X_valid, Y_valid)
     # return model
-    return D({"valid_metrics": valid_metrics, "model": clf, "model_args": model_args,})
+    return D({"valid_metrics": valid_metrics, "model": clf, "model_args": model_args, "model_builder": model_builder, })
