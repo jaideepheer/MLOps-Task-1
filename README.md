@@ -1,145 +1,325 @@
 # MLOps-Task-1
 
-Hi all,
-In today's class we will have a 1hr quiz. The quiz question is :
+## Final Exam
 
-Note: load the best model of SVM and Decision Tree  from the disc -- do not train them during the test case. For both these models.
-1. Add one positive test case per class. For example, "def test_digit_correct_0" function tests if the prediction of an actual digit-0 sample indeed 0 or not, i.e. `assert prediction==0`. (Total of 10 such test cases per model)
-2. [Bonus] Add a test case that checks that accuracy on each class is greater than a certain threshold. i.e. `assert acc_digit[0] > min_acc_req`
+### Q1
 
-## How to run
+Output a table like below, for a classifier of your choice, create `70:15:15` `train:test:dev` splits three times, vary the hyper parameters, run experiments, report metrics. Do you see variations among these runs, why or why not? Identify and report bad hyper parameters leading to over-fitting. Identify what are good hyper parameters. Comment about interpretation of hyperparameter values and performance. Commit the code to the git repo, and upload the screenshot of your result table as shown in the example below. Any further comments, write in the `README.md`.
+
+![](res/images/q1.png)
+
+### A1
+
+Run code with this command,
+```
+python -m mlops_task_1.final_exam.q1
+```
+
+Here we see that the `SVM` model overfits for all gamma values from `0.1` to `0.5`. This is apparent from the fact that the model shows `100%` accuracy in every run on the train set but the mean accuracy on the validation and test set is very poor.
+
+> Note that this image shows only accuracy values of some gamma values. The full data is shown in the output below.
+
+![](res/images/t1.png)
+
+#### Output
 
 ```
-pytest tests
+(/mnt/c/Users/jaide/Desktop/New_folder/MLOps-Task-1/.venv) jaideep@JD-GPC:/mnt/c/Users/jaide/Desktop/New_folder/MLOps-Task-1$ python -m mlops_task_1.final_exam.q1
+Original image size: (1797, 8, 8)
+Classifier: <class 'sklearn.svm._classes.SVC'>
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 3/3 [00:01<00:00,  2.83it/s]
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 3/3 [00:01<00:00,  2.73it/s]
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 3/3 [00:01<00:00,  2.36it/s]
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 3/3 [00:01<00:00,  2.67it/s]
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 3/3 [00:01<00:00,  2.96it/s]
+5it [00:05,  1.11s/it]██████████████████████████████████████████████████████████████████████████████████████████████████████| 3/3 [00:01<00:00,  2.96it/s]
+[
+    {
+        "hparams": {
+            "gamma": 0.1
+        },
+        "mean_metrics": {
+            "test/acc": 0.06939281288723669,
+            "test/f1": 0.012953452982064342,
+            "train/acc": 1.0,
+            "train/f1": 1.0,
+            "valid/acc": 0.07654320987654321,
+            "valid/f1": 0.014219694276573054
+        },
+        "metrics": [
+            {
+                "test": {
+                    "acc": 0.06691449814126393,
+                    "f1": 0.012543554006968641
+                },
+                "train": {
+                    "acc": 1.0,
+                    "f1": 1.0
+                },
+                "valid": {
+                    "acc": 0.07777777777777778,
+                    "f1": 0.01443298969072165
+                }
+            },
+            {
+                "test": {
+                    "acc": 0.08550185873605948,
+                    "f1": 0.015753424657534244
+                },
+                "train": {
+                    "acc": 1.0,
+                    "f1": 1.0
+                },
+                "valid": {
+                    "acc": 0.07407407407407407,
+                    "f1": 0.013793103448275862
+                }
+            },
+            {
+                "test": {
+                    "acc": 0.055762081784386616,
+                    "f1": 0.01056338028169014
+                },
+                "train": {
+                    "acc": 1.0,
+                    "f1": 1.0
+                },
+                "valid": {
+                    "acc": 0.07777777777777778,
+                    "f1": 0.01443298969072165
+                }
+            }
+        ]
+    },
+    {
+        "hparams": {
+            "gamma": 0.2
+        },
+        "mean_metrics": {
+            "test/acc": 0.09913258983890953,
+            "test/f1": 0.020844194692287255,
+            "train/acc": 1.0,
+            "train/f1": 1.0,
+            "valid/acc": 0.07530864197530865,
+            "valid/f1": 0.016250603414880892
+        },
+        "metrics": [
+            {
+                "test": {
+                    "acc": 0.09293680297397769,
+                    "f1": 0.017006802721088433
+                },
+                "train": {
+                    "acc": 1.0,
+                    "f1": 1.0
+                },
+                "valid": {
+                    "acc": 0.07037037037037037,
+                    "f1": 0.013148788927335642
+                }
+            },
+            {
+                "test": {
+                    "acc": 0.11895910780669144,
+                    "f1": 0.0212624584717608
+                },
+                "train": {
+                    "acc": 1.0,
+                    "f1": 1.0
+                },
+                "valid": {
+                    "acc": 0.05925925925925926,
+                    "f1": 0.011188811188811189
+                }
+            },
+            {
+                "test": {
+                    "acc": 0.08550185873605948,
+                    "f1": 0.02426332288401254
+                },
+                "train": {
+                    "acc": 1.0,
+                    "f1": 1.0
+                },
+                "valid": {
+                    "acc": 0.0962962962962963,
+                    "f1": 0.02441421012849584
+                }
+            }
+        ]
+    },
+    {
+        "hparams": {
+            "gamma": 0.3
+        },
+        "mean_metrics": {
+            "test/acc": 0.07187112763320942,
+            "test/f1": 0.013406919024034248,
+            "train/acc": 1.0,
+            "train/f1": 1.0,
+            "valid/acc": 0.09135802469135802,
+            "valid/f1": 0.016740209597352455
+        },
+        "metrics": [
+            {
+                "test": {
+                    "acc": 0.07063197026022305,
+                    "f1": 0.013194444444444448
+                },
+                "train": {
+                    "acc": 1.0,
+                    "f1": 1.0
+                },
+                "valid": {
+                    "acc": 0.08888888888888889,
+                    "f1": 0.0163265306122449
+                }
+            },
+            {
+                "test": {
+                    "acc": 0.07806691449814127,
+                    "f1": 0.014482758620689656
+                },
+                "train": {
+                    "acc": 1.0,
+                    "f1": 1.0
+                },
+                "valid": {
+                    "acc": 0.0962962962962963,
+                    "f1": 0.01756756756756757
+                }
+            },
+            {
+                "test": {
+                    "acc": 0.06691449814126393,
+                    "f1": 0.012543554006968641
+                },
+                "train": {
+                    "acc": 1.0,
+                    "f1": 1.0
+                },
+                "valid": {
+                    "acc": 0.08888888888888889,
+                    "f1": 0.0163265306122449
+                }
+            }
+        ]
+    },
+    {
+        "hparams": {
+            "gamma": 0.4
+        },
+        "mean_metrics": {
+            "test/acc": 0.07434944237918216,
+            "test/f1": 0.01383638793432608,
+            "train/acc": 1.0,
+            "train/f1": 1.0,
+            "valid/acc": 0.08148148148148149,
+            "valid/f1": 0.015062709070401898
+        },
+        "metrics": [
+            {
+                "test": {
+                    "acc": 0.08178438661710037,
+                    "f1": 0.015120274914089345
+                },
+                "train": {
+                    "acc": 1.0,
+                    "f1": 1.0
+                },
+                "valid": {
+                    "acc": 0.07407407407407407,
+                    "f1": 0.013793103448275862
+                }
+            },
+            {
+                "test": {
+                    "acc": 0.07063197026022305,
+                    "f1": 0.013194444444444448
+                },
+                "train": {
+                    "acc": 1.0,
+                    "f1": 1.0
+                },
+                "valid": {
+                    "acc": 0.08888888888888889,
+                    "f1": 0.0163265306122449
+                }
+            },
+            {
+                "test": {
+                    "acc": 0.07063197026022305,
+                    "f1": 0.013194444444444448
+                },
+                "train": {
+                    "acc": 1.0,
+                    "f1": 1.0
+                },
+                "valid": {
+                    "acc": 0.08148148148148149,
+                    "f1": 0.015068493150684934
+                }
+            }
+        ]
+    },
+    {
+        "hparams": {
+            "gamma": 0.5
+        },
+        "mean_metrics": {
+            "test/acc": 0.08178438661710037,
+            "test/f1": 0.015083876681814825,
+            "train/acc": 1.0,
+            "train/f1": 1.0,
+            "valid/acc": 0.08765432098765431,
+            "valid/f1": 0.01611043159182247
+        },
+        "metrics": [
+            {
+                "test": {
+                    "acc": 0.06319702602230483,
+                    "f1": 0.011888111888111886
+                },
+                "train": {
+                    "acc": 1.0,
+                    "f1": 1.0
+                },
+                "valid": {
+                    "acc": 0.09259259259259259,
+                    "f1": 0.01694915254237288
+                }
+            },
+            {
+                "test": {
+                    "acc": 0.10037174721189591,
+                    "f1": 0.018243243243243244
+                },
+                "train": {
+                    "acc": 1.0,
+                    "f1": 1.0
+                },
+                "valid": {
+                    "acc": 0.09259259259259259,
+                    "f1": 0.01694915254237288
+                }
+            },
+            {
+                "test": {
+                    "acc": 0.08178438661710037,
+                    "f1": 0.015120274914089345
+                },
+                "train": {
+                    "acc": 1.0,
+                    "f1": 1.0
+                },
+                "valid": {
+                    "acc": 0.07777777777777778,
+                    "f1": 0.01443298969072165
+                }
+            }
+        ]
+    }
+]
 ```
 
-## Output
-
-```
-(/mnt/c/Users/jaide/Desktop/New_folder/MLOps-Task-1/.venv) jaideep@JD-GPC:/mnt/c/Users/jaide/Desktop/New_folder/MLOps-Task-1$ pytest tests
-================================================================== test session starts ===================================================================
-platform linux -- Python 3.8.5, pytest-6.2.5, py-1.10.0, pluggy-1.0.0
-rootdir: /mnt/c/Users/jaide/Desktop/New_folder/MLOps-Task-1
-collected 18 items                                                                                                                                       
-
-tests/test_best_models.py .FFFFF.FFF                                                                                                               [ 55%]
-tests/test_model_writing.py ...                                                                                                                    [ 72%]
-tests/test_samples.py .....                                                                                                                        [100%]
-
-======================================================================== FAILURES ========================================================================
-______________________________________________________________________ test_digit_1 ______________________________________________________________________
-
-    def test_digit_1():
-        DIGIT = 1
-        im = ds.data[ds.target.tolist().index(DIGIT)].reshape(1, -1)
-        for m in models:
-            mdl = load(root / f'{m}.gz')
->           assert mdl['model'].predict(im) == DIGIT
-E           assert array([6]) == 1
-E            +  where array([6]) = <bound method BaseSVC.predict of SVC(gamma=0.1)>(array([[ 0.,  0.,  0., 12., 13.,  5.,  0.,  0.,  0.,  0.,  0., 11., 16.,\n         9.,  0.,  0.,  0.,  0.,  3., 15., 16... 1., 16., 16.,  6.,  0.,  0.,  0.,  0.,  1., 16.,\n        16.,  6.,  0.,  0.,  0.,  0.,  0., 11., 16., 10.,  0.,  0.]]))
-E            +    where <bound method BaseSVC.predict of SVC(gamma=0.1)> = SVC(gamma=0.1).predict
-
-tests/test_best_models.py:24: AssertionError
-______________________________________________________________________ test_digit_2 ______________________________________________________________________
-
-    def test_digit_2():
-        DIGIT = 2
-        im = ds.data[ds.target.tolist().index(DIGIT)].reshape(1, -1)
-        for m in models:
-            mdl = load(root / f'{m}.gz')
->           assert mdl['model'].predict(im) == DIGIT
-E           assert array([6]) == 2
-E            +  where array([6]) = <bound method BaseSVC.predict of SVC(gamma=0.1)>(array([[ 0.,  0.,  0.,  4., 15., 12.,  0.,  0.,  0.,  0.,  3., 16., 15.,\n        14.,  0.,  0.,  0.,  0.,  8., 13.,  8...16., 16.,  5.,  0.,  0.,  0.,  0.,  3., 13., 16.,\n        16., 11.,  5.,  0.,  0.,  0.,  0.,  3., 11., 16.,  9.,  0.]]))
-E            +    where <bound method BaseSVC.predict of SVC(gamma=0.1)> = SVC(gamma=0.1).predict
-
-tests/test_best_models.py:32: AssertionError
-______________________________________________________________________ test_digit_3 ______________________________________________________________________
-
-    def test_digit_3():
-        DIGIT = 3
-        im = ds.data[ds.target.tolist().index(DIGIT)].reshape(1, -1)
-        for m in models:
-            mdl = load(root / f'{m}.gz')
->           assert mdl['model'].predict(im) == DIGIT
-E           assert array([6]) == 3
-E            +  where array([6]) = <bound method BaseSVC.predict of SVC(gamma=0.1)>(array([[ 0.,  0.,  7., 15., 13.,  1.,  0.,  0.,  0.,  8., 13.,  6., 15.,\n         4.,  0.,  0.,  0.,  2.,  1., 13., 13... 0.,  0.,  1., 10.,  8.,  0.,  0.,  0.,  8.,  4.,\n         5., 14.,  9.,  0.,  0.,  0.,  7., 13., 13.,  9.,  0.,  0.]]))
-E            +    where <bound method BaseSVC.predict of SVC(gamma=0.1)> = SVC(gamma=0.1).predict
-
-tests/test_best_models.py:40: AssertionError
-______________________________________________________________________ test_digit_4 ______________________________________________________________________
-
-    def test_digit_4():
-        DIGIT = 4
-        im = ds.data[ds.target.tolist().index(DIGIT)].reshape(1, -1)
-        for m in models:
-            mdl = load(root / f'{m}.gz')
->           assert mdl['model'].predict(im) == DIGIT
-E           assert array([6]) == 4
-E            +  where array([6]) = <bound method BaseSVC.predict of SVC(gamma=0.1)>(array([[ 0.,  0.,  0.,  1., 11.,  0.,  0.,  0.,  0.,  0.,  0.,  7.,  8.,\n         0.,  0.,  0.,  0.,  0.,  1., 13.,  6...15., 16., 13., 16.,  1.,  0.,  0.,  0.,  0.,  3.,\n        15., 10.,  0.,  0.,  0.,  0.,  0.,  2., 16.,  4.,  0.,  0.]]))
-E            +    where <bound method BaseSVC.predict of SVC(gamma=0.1)> = SVC(gamma=0.1).predict
-
-tests/test_best_models.py:48: AssertionError
-______________________________________________________________________ test_digit_5 ______________________________________________________________________
-
-    def test_digit_5():
-        DIGIT = 5
-        im = ds.data[ds.target.tolist().index(DIGIT)].reshape(1, -1)
-        for m in models:
-            mdl = load(root / f'{m}.gz')
->           assert mdl['model'].predict(im) == DIGIT
-E           assert array([6]) == 5
-E            +  where array([6]) = <bound method BaseSVC.predict of SVC(gamma=0.1)>(array([[ 0.,  0., 12., 10.,  0.,  0.,  0.,  0.,  0.,  0., 14., 16., 16.,\n        14.,  0.,  0.,  0.,  0., 13., 16., 15... 0.,  0.,  4., 16.,  9.,  0.,  0.,  0.,  5.,  4.,\n        12., 16.,  4.,  0.,  0.,  0.,  9., 16., 16., 10.,  0.,  0.]]))
-E            +    where <bound method BaseSVC.predict of SVC(gamma=0.1)> = SVC(gamma=0.1).predict
-
-tests/test_best_models.py:56: AssertionError
-______________________________________________________________________ test_digit_7 ______________________________________________________________________
-
-    def test_digit_7():
-        DIGIT = 7
-        im = ds.data[ds.target.tolist().index(DIGIT)].reshape(1, -1)
-        for m in models:
-            mdl = load(root / f'{m}.gz')
->           assert mdl['model'].predict(im) == DIGIT
-E           assert array([6]) == 7
-E            +  where array([6]) = <bound method BaseSVC.predict of SVC(gamma=0.1)>(array([[ 0.,  0.,  7.,  8., 13., 16., 15.,  1.,  0.,  0.,  7.,  7.,  4.,\n        11., 12.,  0.,  0.,  0.,  0.,  0.,  8... 0., 16.,  5.,  0.,  0.,  0.,  0.,  0.,  9., 15.,\n         1.,  0.,  0.,  0.,  0.,  0., 13.,  5.,  0.,  0.,  0.,  0.]]))
-E            +    where <bound method BaseSVC.predict of SVC(gamma=0.1)> = SVC(gamma=0.1).predict
-
-tests/test_best_models.py:72: AssertionError
-______________________________________________________________________ test_digit_8 ______________________________________________________________________
-
-    def test_digit_8():
-        DIGIT = 8
-        im = ds.data[ds.target.tolist().index(DIGIT)].reshape(1, -1)
-        for m in models:
-            mdl = load(root / f'{m}.gz')
->           assert mdl['model'].predict(im) == DIGIT
-E           assert array([6]) == 8
-E            +  where array([6]) = <bound method BaseSVC.predict of SVC(gamma=0.1)>(array([[ 0.,  0.,  9., 14.,  8.,  1.,  0.,  0.,  0.,  0., 12., 14., 14.,\n        12.,  0.,  0.,  0.,  0.,  9., 10.,  0...16.,  8., 10., 13.,  2.,  0.,  0.,  1., 15.,  1.,\n         3., 16.,  8.,  0.,  0.,  0., 11., 16., 15., 11.,  1.,  0.]]))
-E            +    where <bound method BaseSVC.predict of SVC(gamma=0.1)> = SVC(gamma=0.1).predict
-
-tests/test_best_models.py:80: AssertionError
-______________________________________________________________________ test_digit_9 ______________________________________________________________________
-
-    def test_digit_9():
-        DIGIT = 9
-        im = ds.data[ds.target.tolist().index(DIGIT)].reshape(1, -1)
-        for m in models:
-            mdl = load(root / f'{m}.gz')
->           assert mdl['model'].predict(im) == DIGIT
-E           assert array([7]) == 9
-E            +  where array([7]) = <bound method BaseDecisionTree.predict of DecisionTreeClassifier(max_depth=8)>(array([[ 0.,  0., 11., 12.,  0.,  0.,  0.,  0.,  0.,  2., 16., 16., 16.,\n        13.,  0.,  0.,  0.,  3., 16., 12., 10... 0.,  3.,  0.,  9., 11.,  0.,  0.,  0.,  0.,  0.,\n         9., 15.,  4.,  0.,  0.,  0.,  9., 12., 13.,  3.,  0.,  0.]]))
-E            +    where <bound method BaseDecisionTree.predict of DecisionTreeClassifier(max_depth=8)> = DecisionTreeClassifier(max_depth=8).predict
-
-tests/test_best_models.py:88: AssertionError
-================================================================ short test summary info =================================================================
-FAILED tests/test_best_models.py::test_digit_1 - assert array([6]) == 1
-FAILED tests/test_best_models.py::test_digit_2 - assert array([6]) == 2
-FAILED tests/test_best_models.py::test_digit_3 - assert array([6]) == 3
-FAILED tests/test_best_models.py::test_digit_4 - assert array([6]) == 4
-FAILED tests/test_best_models.py::test_digit_5 - assert array([6]) == 5
-FAILED tests/test_best_models.py::test_digit_7 - assert array([6]) == 7
-FAILED tests/test_best_models.py::test_digit_8 - assert array([6]) == 8
-FAILED tests/test_best_models.py::test_digit_9 - assert array([7]) == 9
-============================================================= 8 failed, 10 passed in 11.59s ==============================================================
-
-```
+## Q2

@@ -5,7 +5,7 @@ from sklearn.svm import SVC
 import numpy as np
 from addict import Dict as D
 from itertools import product
-from typing import List, Dict
+from typing import List, Dict, Tuple
 import pathlib
 import os
 
