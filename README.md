@@ -323,3 +323,11 @@ Classifier: <class 'sklearn.svm._classes.SVC'>
 ```
 
 ## Q2
+
+### Answer
+
+#### Output
+
+```
+
+```
