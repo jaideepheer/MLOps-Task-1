@@ -15,14 +15,12 @@ def write_trained_model(model_dict, models_root: pathlib.Path):
     dump(model_dict["model"], out_folder / "model.gz")
 
 
-# Run train
-if __name__ == "__main__":
+def main(models_root: pathlib.Path = pathlib.Path("./models")):
     digits = datasets.load_digits()
     print(f"Original image size: {digits.images.shape}")
     data = digits.images
     n_samples = len(data)
     # set default models root
-    models_root = pathlib.Path("./models")
     if models_root.exists():
         print(f"Models folder ({models_root}) exists.")
         if (input(f"Do you want to overwrite data?[Y/n]:") or "y").lower() == "y":
@@ -91,3 +89,8 @@ if __name__ == "__main__":
             item_seperator="\t",
         )
         print(f"{images.shape[-2]}x{images.shape[-1]}\t{model_stats}")
+
+
+# Run train
+if __name__ == "__main__":
+    main(pathlib.Path("./models"))

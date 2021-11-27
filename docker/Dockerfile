@@ -9,4 +9,4 @@ RUN pip3 install --no-cache-dir -r /exp/requirements.txt
 # my code creates the models folder
 # RUN mkdir /exp/models
 WORKDIR /exp
-CMD ["python3", "./mlops_task_1/plot_graphs.py"]
+CMD ["python3", "-m", "mlops_task_1.final_exam.q2"]
