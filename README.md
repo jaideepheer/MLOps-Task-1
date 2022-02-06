@@ -1,5 +1,5 @@
 # MLOps-Task-1
-I thought the'y make us create multiple repositories.
+I thought they would make us create multiple repositories.
 
 But they made us create multiple branches instead.
 
